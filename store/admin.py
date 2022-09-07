@@ -47,7 +47,7 @@ class ProductAdmin(admin.ModelAdmin):
     @admin.action(description='Clear inventory')
     def clear_inventory(self, request, queryset):
         updated_count = queryset.update(inventory=0)
-        self.message_user(
+        self.message_user( 
             request,
             f'{updated_count} products were successfully updated.',
             messages.ERROR
