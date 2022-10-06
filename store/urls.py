@@ -8,9 +8,13 @@ from . import views
 router = routers.DefaultRouter()
 router.register('products', views.ProductsViewSet, basename='products')
 router.register('collections', views.CollectionViewSet)
+router.register('carts', views.CartViewset)
 
 products_router = routers.NestedDefaultRouter(router, 'products', lookup='product')
 products_router.register('reviews', views.ReviewViewSet, basename='product-reviews')
+
+carts_router = routers.NestedDefaultRouter(router, 'carts', lookup='cart')
+carts_router.register('items', views.CartItemViewSet, basename='cart-items-detail')
 # pprint(router.urls)
 # URLConf
 # urlpatterns = [
@@ -23,4 +27,4 @@ products_router.register('reviews', views.ReviewViewSet, basename='product-revie
 #     path('collections/<int:pk>/', views.CollectionDetail.as_view(), name='collection-detail'),
 # ]
 
-urlpatterns = router.urls + products_router.urls
+urlpatterns = router.urls + products_router.urls + carts_router.urls
